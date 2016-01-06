@@ -163,7 +163,7 @@ class Build(Command):
             self.e['cppflags'].append('-DUSB_VID=%s' % board['build']['vid'])
         if 'pid' in board['build']:
             self.e['cppflags'].append('-DUSB_PID=%s' % board['build']['pid'])
-            
+
         if self.e.arduino_lib_version.major:
             variant_dir = os.path.join(self.e.arduino_variants_dir, 
                                        board['build']['variant'])
@@ -221,7 +221,7 @@ class Build(Command):
         flags = SpaceList()
         for d in libdirs:
             flags.append('-I' + d)
-            flags.extend('-I' + subd for subd in list_subdirs(d, recursive=True, exclude=['examples']))
+            flags.extend('-I' + subd for subd in list_subdirs(d, recursive=True, exclude=['examples', 'src']))
         return flags
 
     def _scan_dependencies(self, dir, lib_dirs, inc_flags):
@@ -252,7 +252,7 @@ class Build(Command):
         # If lib A depends on lib B it have to appear before B in final
         # list so that linker could link all together correctly
         # but order of `_scan_dependencies` is not defined, so...
-        
+
         # 1. Get dependencies of sources in arbitrary order
         used_libs = list(self._scan_dependencies(self.e.src_dir, lib_dirs, inc_flags))
 
