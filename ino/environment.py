@@ -79,9 +79,12 @@ class Environment(dict):
     ]
 
     if platform.system() == 'Darwin':
-        arduino_dist_dir_guesees.insert(0, '/Applications/Artisteer.app/Contents/Java')
-        arduino_dist_dir_guesses.insert(0, '/Applications/Arduino.app/Contents/Resources/Java')
-        arduino_dist_dir_guesses.insert(0, '~/Applications/Arduino.app/Contents/Java')
+        if os.path.exists('/Applications/Arduino.app/Contents/Java'):
+            arduino_dist_dir_guesees.insert(0, '/Applications/Arduino.app/Contents/Java')
+        elif os.path.exists('/Users/' + os.environ['USER'] + '/Applications/Arduino.app/Contents/Java'):
+            arduino_dist_dir_guesses.insert(0, '/Users/' + os.environ['USER'] + '/Applications/Arduino.app/Contents/Java')
+        else:
+            arduino_dist_dir_guesses.insert(0, '/Applications/Arduino.app/Contents/Resources/Java')
 
     default_board_model = 'uno'
     ino = sys.argv[0]
@@ -148,7 +151,7 @@ class Environment(dict):
         places = map(os.path.expanduser, places)
 
         glob_places = itertools.chain.from_iterable(glob(p) for p in places)
-        
+
         print 'Searching for', human_name, '...',
         results = []
         for p in glob_places:

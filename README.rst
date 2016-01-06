@@ -96,6 +96,10 @@ Contributors
 Changelog
 =========
 
+0.3.7
+    * Fixed issue with new Mac OS X and Homebrew Cask Arduino installations.
+    * Excluded `src` from the lib flags in the used by `Makefile`. 
+
 0.3.6
     * Fix #74, #107, #108: Use of types declared in included files is allowed
       in function definitions. Previously it led to: '<enum|struct|typedef>' not
