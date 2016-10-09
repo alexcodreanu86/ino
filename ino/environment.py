@@ -80,7 +80,7 @@ class Environment(dict):
 
     if platform.system() == 'Darwin':
         if os.path.exists('/Applications/Arduino.app/Contents/Java'):
-            arduino_dist_dir_guesees.insert(0, '/Applications/Arduino.app/Contents/Java')
+            arduino_dist_dir_guesses.insert(0, '/Applications/Arduino.app/Contents/Java')
         elif os.path.exists('/Users/' + os.environ['USER'] + '/Applications/Arduino.app/Contents/Java'):
             arduino_dist_dir_guesses.insert(0, '/Users/' + os.environ['USER'] + '/Applications/Arduino.app/Contents/Java')
         else:
